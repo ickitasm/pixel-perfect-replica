@@ -13,7 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as CareerRouteImport } from './routes/career'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as PortalRouteImport } from './routes/portal'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as PortalIndexRouteImport } from './routes/portal.index'
+import { Route as PortalClientRouteImport } from './routes/portal.client'
 import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
 import { Route as ProjectsSlugRouteImport } from './routes/projects.$slug'
 
@@ -37,10 +40,25 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PortalRoute = PortalRouteImport.update({
+  id: '/portal',
+  path: '/portal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
   getParentRoute: () => rootRouteImport,
+} as any)
+const PortalIndexRoute = PortalIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PortalRoute,
+} as any)
+const PortalClientRoute = PortalClientRouteImport.update({
+  id: '/client',
+  path: '/client',
+  getParentRoute: () => PortalRoute,
 } as any)
 const ProjectsIndexRoute = ProjectsIndexRouteImport.update({
   id: '/projects/',
@@ -58,8 +76,11 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/career': typeof CareerRoute
   '/contact': typeof ContactRoute
+  '/portal': typeof PortalRouteWithChildren
   '/services': typeof ServicesRoute
+  '/portal/client': typeof PortalClientRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/portal/': typeof PortalIndexRoute
   '/projects/': typeof ProjectsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -68,7 +89,9 @@ export interface FileRoutesByTo {
   '/career': typeof CareerRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
+  '/portal/client': typeof PortalClientRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/portal': typeof PortalIndexRoute
   '/projects': typeof ProjectsIndexRoute
 }
 export interface FileRoutesById {
@@ -77,8 +100,11 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/career': typeof CareerRoute
   '/contact': typeof ContactRoute
+  '/portal': typeof PortalRouteWithChildren
   '/services': typeof ServicesRoute
+  '/portal/client': typeof PortalClientRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/portal/': typeof PortalIndexRoute
   '/projects/': typeof ProjectsIndexRoute
 }
 export interface FileRouteTypes {
@@ -88,8 +114,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/career'
     | '/contact'
+    | '/portal'
     | '/services'
+    | '/portal/client'
     | '/projects/$slug'
+    | '/portal/'
     | '/projects/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -98,7 +127,9 @@ export interface FileRouteTypes {
     | '/career'
     | '/contact'
     | '/services'
+    | '/portal/client'
     | '/projects/$slug'
+    | '/portal'
     | '/projects'
   id:
     | '__root__'
@@ -106,8 +137,11 @@ export interface FileRouteTypes {
     | '/about'
     | '/career'
     | '/contact'
+    | '/portal'
     | '/services'
+    | '/portal/client'
     | '/projects/$slug'
+    | '/portal/'
     | '/projects/'
   fileRoutesById: FileRoutesById
 }
@@ -116,6 +150,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   CareerRoute: typeof CareerRoute
   ContactRoute: typeof ContactRoute
+  PortalRoute: typeof PortalRouteWithChildren
   ServicesRoute: typeof ServicesRoute
   ProjectsSlugRoute: typeof ProjectsSlugRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
@@ -151,12 +186,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/portal': {
+      id: '/portal'
+      path: '/portal'
+      fullPath: '/portal'
+      preLoaderRoute: typeof PortalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services': {
       id: '/services'
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/portal/': {
+      id: '/portal/'
+      path: '/'
+      fullPath: '/portal/'
+      preLoaderRoute: typeof PortalIndexRouteImport
+      parentRoute: typeof PortalRoute
+    }
+    '/portal/client': {
+      id: '/portal/client'
+      path: '/client'
+      fullPath: '/portal/client'
+      preLoaderRoute: typeof PortalClientRouteImport
+      parentRoute: typeof PortalRoute
     }
     '/projects/': {
       id: '/projects/'
@@ -175,11 +231,25 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface PortalRouteChildren {
+  PortalClientRoute: typeof PortalClientRoute
+  PortalIndexRoute: typeof PortalIndexRoute
+}
+
+const PortalRouteChildren: PortalRouteChildren = {
+  PortalClientRoute: PortalClientRoute,
+  PortalIndexRoute: PortalIndexRoute,
+}
+
+const PortalRouteWithChildren =
+  PortalRoute._addFileChildren(PortalRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   CareerRoute: CareerRoute,
   ContactRoute: ContactRoute,
+  PortalRoute: PortalRouteWithChildren,
   ServicesRoute: ServicesRoute,
   ProjectsSlugRoute: ProjectsSlugRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,
