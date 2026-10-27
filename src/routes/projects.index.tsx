@@ -7,7 +7,7 @@ import { PageIntro } from "@/components/site/SiteLayout";
 type Search = { q?: string | undefined; category?: Category | undefined; status?: Status | undefined };
 
 export const Route = createFileRoute("/projects/")({
-  validateSearch: (s: Record<string, unknown>): Search => ({
+  validateSearch: (s: { q?: unknown; category?: unknown; status?: unknown }): Search => ({
     q: typeof s.q === "string" && s.q ? s.q : undefined,
     category: CATEGORIES.includes(s.category as Category) ? (s.category as Category) : undefined,
     status: STATUSES.includes(s.status as Status) ? (s.status as Status) : undefined,

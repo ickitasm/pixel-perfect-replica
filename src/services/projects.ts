@@ -7,9 +7,9 @@ export const CATEGORIES: Category[] = ["Commercial", "Residential", "Common"];
 export const STATUSES: Status[] = ["Completed", "In Progress"];
 
 export interface ProjectFilter {
-  q?: string;
-  category?: Category;
-  status?: Status;
+  q?: string | undefined;
+  category?: Category | undefined;
+  status?: Status | undefined;
 }
 
 export function filterProjects(list: Project[], f: ProjectFilter): Project[] {
