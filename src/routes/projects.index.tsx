@@ -4,7 +4,7 @@ import { CATEGORIES, STATUSES, filterProjects, projectsQuery, type Category, typ
 import { ProjectCard } from "@/components/site/ProjectCard";
 import { PageIntro } from "@/components/site/SiteLayout";
 
-type Search = { q?: string; category?: Category; status?: Status };
+type Search = { q?: string | undefined; category?: Category | undefined; status?: Status | undefined };
 
 export const Route = createFileRoute("/projects/")({
   validateSearch: (s: Record<string, unknown>): Search => ({
