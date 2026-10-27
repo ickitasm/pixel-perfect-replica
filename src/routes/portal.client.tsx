@@ -4,7 +4,7 @@ import { ClientPortal, CLIENT_TABS, type ClientTab } from "@/components/portal/C
 import { clientPortalQuery } from "@/services/portal";
 
 export const Route = createFileRoute("/portal/client")({
-  validateSearch: (search: Record<string, unknown>): { tab: ClientTab } => ({ tab: CLIENT_TABS.find((item) => item.value === search.tab)?.value ?? "overview" }),
+  validateSearch: (search: Record<string, unknown>): { tab: ClientTab } => ({ tab: CLIENT_TABS.find((item) => item.value === search["tab"])?.value ?? "overview" }),
   head: () => ({ meta: [
     { title: "My Project — Atelier Rana Demo Client Portal" },
     { name: "description", content: "Explore the fictional Omah Sunyi project, designs, progress, documents, materials and demo billing." },

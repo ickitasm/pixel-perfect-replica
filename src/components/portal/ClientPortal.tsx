@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { ArrowUpRight, Check, Clock3, FileText, Paperclip, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -25,7 +24,7 @@ function Status({ children }: { children: string }) {
 
 export function ClientPortal({ data, tab, onTabChange }: { data: ClientPortalData; tab: ClientTab; onTabChange: (tab: ClientTab) => void }) {
   const { role, setRole } = useDemoRole();
-  const [preview, setPreview] = useState<{ title: string; text?: string; image?: string } | null>(null);
+  const [preview, setPreview] = useState<{ title: string; text?: string; image?: string | undefined } | null>(null);
   const project = data.project;
   if (role === "Guest") return <section className="mx-auto max-w-7xl px-6 py-16"><p className="label">Client space</p><h1 className="mt-4 text-5xl">Guest view</h1><p className="mt-6 text-muted-foreground">No sample project selected.</p><Button className="mt-8" onClick={() => setRole("Client Demo")}>Choose Client Demo<ArrowUpRight /></Button></section>;
   return (

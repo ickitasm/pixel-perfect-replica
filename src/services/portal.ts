@@ -3,7 +3,7 @@ import { seedClientPortal, seedProjects, type DemoInvoice, type DemoRole } from 
 
 export type { DemoInvoice, DemoRole };
 export const DEMO_ROLES: DemoRole[] = ["Guest", "Client Demo", "Internal Demo"];
-export const SAMPLE_PROOFS = ["sample-bank-transfer.pdf", "sample-transfer-receipt.jpg"];
+export const SAMPLE_PROOFS: readonly [string, string] = ["sample-bank-transfer.pdf", "sample-transfer-receipt.jpg"];
 
 export async function getClientPortal() {
   const project = seedProjects.find((p) => p.id === seedClientPortal.projectId);
