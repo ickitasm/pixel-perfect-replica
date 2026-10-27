@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
+import { Button } from "@/components/ui/button";
 
 const NAV = [
   { to: "/projects", label: "Projects" },
@@ -7,6 +8,7 @@ const NAV = [
   { to: "/about", label: "About" },
   { to: "/career", label: "Career" },
   { to: "/contact", label: "Contact" },
+  { to: "/portal", label: "Demo Portal" },
 ] as const;
 
 export const STUDIO = "Atelier Rana";
@@ -24,9 +26,9 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <button className="text-sm md:hidden" aria-expanded={open} aria-controls="mobile-nav" onClick={() => setOpen(!open)}>
+        <Button variant="ghost" className="text-sm md:hidden" aria-expanded={open} aria-controls="mobile-nav" onClick={() => setOpen(!open)}>
           {open ? "Close" : "Menu"}
-        </button>
+        </Button>
       </div>
       {open && (
         <nav id="mobile-nav" aria-label="Mobile" className="flex flex-col gap-1 border-t px-6 pb-6 pt-2 md:hidden">
@@ -56,7 +58,7 @@ export function SiteFooter() {
         </div>
         <div className="text-sm text-muted-foreground">
           <p className="label mb-3">Demo portal</p>
-          <p>Coming in the next phase.</p>
+          <Link to="/portal" className="underline underline-offset-4 hover:text-foreground">Explore the Demo Client Portal</Link>
         </div>
       </div>
     </footer>
