@@ -19,7 +19,7 @@ describe("demo payment proofs", () => {
   });
   it("does not resubmit pending invoices or change settled invoices", async () => {
     const data = await getClientPortal();
-    const pending = submitDemoProof(data.invoices, "inv3", SAMPLE_PROOOFS_PLACEHOLDER, "Client Demo");
+    const pending = submitDemoProof(data.invoices, "inv3", SAMPLE_PROOFS[0], "Client Demo");
     expect(() => submitDemoProof(pending, "inv3", SAMPLE_PROOFS[0], "Client Demo")).toThrow("Only unpaid");
     expect(() => submitDemoProof(pending, "inv1", SAMPLE_PROOFS[0], "Client Demo")).toThrow("Only unpaid");
   });
