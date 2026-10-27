@@ -8,3 +8,7 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- UI reads data only through src/services/* (seed data in src/data/seed.ts) — so a real backend can replace the demo layer without touching components.
+- Portal is demo-only (role switcher, no real auth/payments) — never present it as secure.
+- Public site chrome (header/footer) lives in __root.tsx; project filters are URL search params — shareable links.
